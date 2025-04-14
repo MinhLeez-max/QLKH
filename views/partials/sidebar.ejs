@@ -1,0 +1,44 @@
+<nav class="offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+  <div class="offcanvas-header bg-primary text-white">
+    <h5 class="offcanvas-title" id="sidebarLabel">
+      <i class="fas fa-bars me-2"></i>Menu
+    </h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link active d-flex align-items-center py-3 px-4" href="/">
+          <i class="fas fa-tachometer-alt me-3"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center py-3 px-4" href="/products">
+          <i class="fas fa-boxes me-3"></i>
+          <span>Sản phẩm</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center py-3 px-4" href="/inventory/import">
+          <i class="fas fa-warehouse me-3"></i>
+          <span>Tồn kho</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center py-3 px-4" href="/charts/stats">
+          <i class="fas fa-chart-bar me-3"></i>
+          <span>Biểu đồ</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<button class="btn btn-primary sidebar-toggler position-fixed d-lg-none" 
+        style="bottom: 20px; right: 20px; z-index: 1000;"
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#sidebar" 
+        aria-controls="sidebar">
+  <i class="fas fa-bars"></i>
+</button>

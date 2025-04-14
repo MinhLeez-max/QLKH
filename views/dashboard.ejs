@@ -1,0 +1,127 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+<div class="container-fluid mt-4">
+  <!-- Thống kê nhanh -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card bg-primary text-white shadow">
+        <div class="card-body">
+          <h5 class="card-title">Tổng sản phẩm</h5>
+          <p class="display-4"><%= stats.totalProducts || 0 %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <h5 class="card-title">Tổng tồn kho</h5>
+          <p class="display-4"><%= stats.totalQuantity || 0 %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-info text-white">
+        <div class="card-body">
+          <h5 class="card-title">Giao dịch 7 ngày</h5>
+          <p class="display-4"><%= stats.recentTransactions || 0 %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-warning text-dark">
+        <div class="card-body">
+          <h5 class="card-title">Cảnh báo tồn kho</h5>
+          <p class="display-4"><%= stats.lowStockItems || 0 %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nút chức năng nhanh -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body text-center">
+          <a href="/product/list" class="btn btn-primary mx-2">Quản lý sản phẩm</a>
+          <a href="/inventory/import" class="btn btn-success mx-2">Nhập kho</a>
+          <a href="/inventory/export" class="btn btn-danger mx-2">Xuất kho</a>
+          <a href="/chart/stats" class="btn btn-info mx-2">Báo cáo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Biểu đồ và hoạt động -->
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>Hoạt động gần đây</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Thời gian</th>
+                <th>Loại</th>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (activities && activities.length > 0) { %>
+                <% activities.forEach(activity => { %>
+                  <tr>
+                    <td><%= new Date(activity.date).toLocaleString() %></td>
+                    <td><%= activity.action === 'import' ? 'Nhập' : 'Xuất' %></td>
+                    <td><%= activity.productId.name %></td>
+                    <td><%= activity.quantity %></td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="4" class="text-center">Không có hoạt động gần đây</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h5>Tồn kho theo loại</h5>
+        </div>
+        <div class="card-body">
+          <canvas id="inventoryChart" width="100%" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
+
+<script>
+// Script cho biểu đồ
+document.addEventListener('DOMContentLoaded', function() {
+  const ctx = document.getElementById('inventoryChart').getContext('2d');
+  // Dữ liệu biểu đồ
+  const chartData = JSON.parse('<%- JSON.stringify(chartData || {highStock: 0, mediumStock: 0, lowStock: 0}) %>');
+
+  // Tạo biểu đồ
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Tồn kho cao', 'Tồn kho trung bình', 'Tồn kho thấp'],
+      datasets: [{
+        data: [chartData.highStock, chartData.mediumStock, chartData.lowStock],
+        backgroundColor: ['#28a745', '#ffc107', '#dc3545']
+      }]
+    }
+  });
+});
+</script>

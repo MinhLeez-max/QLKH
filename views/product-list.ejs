@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách sản phẩm</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .card {
+      border-radius: 10px;
+    }
+    .table th {
+      white-space: nowrap;
+    }
+    .action-btns {
+      min-width: 100px;
+    }
+    .table-hover tbody tr:hover {
+      background-color: rgba(0, 123, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <div class="container py-4">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0"><i class="fas fa-boxes me-2"></i>Danh sách sản phẩm</h4>
+        <a href="/products/add" class="btn btn-light">
+          <i class="fas fa-plus me-1"></i> Thêm mới
+        </a>
+      </div>
+
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+              <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm...">
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th width="50">STT</th>
+                <th>Tên sản phẩm</th>
+                <th>Mã SKU</th>
+                <th>Số lượng</th>
+                <th>Giá nhập</th>
+                <th>Giá bán</th>
+                <th class="action-btns">Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% products.forEach((product, index) => { %>
+                <tr>
+                  <td><%= (currentPage - 1) * 10 + index + 1 %></td>
+                  <td><%= product.name %></td>
+                  <td><span class="badge bg-secondary"><%= product.sku %></span></td>
+                  <td>
+                    <span class="badge <%= product.quantity > 0 ? 'bg-success' : 'bg-danger' %>">
+                      <%= product.quantity %> <%= product.unit %>
+                    </span>
+                  </td>
+                  <td><%= product.importPrice.toLocaleString() %>đ</td>
+                  <td><%= product.salePrice.toLocaleString() %>đ</td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <a href="/products/update/<%= product._id %>" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('<%= product._id %>')">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+
+        <% if (totalPages > 1) { %>
+          <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+              <% for (let i = 1; i <= totalPages; i++) { %>
+                <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                  <a class="page-link" href="/products/list?page=<%= i %>"><%= i %></a>
+                </li>
+              <% } %>
+            </ul>
+          </nav>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <%- include('partials/footer') %>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function confirmDelete(id) {
+      if (confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
+        fetch('/products/delete', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id })
+        }).then(() => window.location.reload());
+      }
+    }
+  </script>
+</body>
+</html>

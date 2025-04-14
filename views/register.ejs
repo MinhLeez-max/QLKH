@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <%- include('partials/head') %>
+    <title>Đăng ký</title>
+</head>
+<body>
+    <%- include('partials/header') %>
+    
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0 text-center">
+                            <i class="fas fa-user-plus me-2"></i>Đăng ký tài khoản
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="/auth/register" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label">Tên người dùng</label>
+                                <input type="text" name="username" class="form-control" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label">Mật khẩu</label>
+                                <input type="password" name="password" class="form-control" required minlength="6">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100 py-2">
+                                Đăng ký
+                            </button>
+                            
+                            <div class="text-center mt-3">
+                                Đã có tài khoản? <a href="/auth/login">Đăng nhập ngay</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

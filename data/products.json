@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Sản phẩm A",
+    "sku": "SKU001",
+    "quantity": 100,
+    "unit": "cái",
+    "importPrice": 50000,
+    "salePrice": 60000,
+    "supplier": "Nhà cung cấp 1",
+    "importDate": "2023-01-01",
+    "note": "Ghi chú sản phẩm A"
+  },
+  {
+    "name": "Sản phẩm B",
+    "sku": "SKU002",
+    "quantity": 200,
+    "unit": "cái",
+    "importPrice": 30000,
+    "salePrice": 40000,
+    "supplier": "Nhà cung cấp 2",
+    "importDate": "2023-01-02",
+    "note": "Ghi chú sản phẩm B"
+  },
+  {
+    "name": "Sản phẩm C",
+    "sku": "SKU003",
+    "quantity": 150,
+    "unit": "cái",
+    "importPrice": 70000,
+    "salePrice": 80000,
+    "supplier": "Nhà cung cấp 3",
+    "importDate": "2023-01-03",
+    "note": "Ghi chú sản phẩm C"
+  },
+  {
+    "name": "Điện thoại X",
+    "sku": "SKU004",
+    "quantity": 50,
+    "unit": "chiếc",
+    "importPrice": 5000000,
+    "salePrice": 6500000,
+    "supplier": "Công ty Điện tử",
+    "importDate": "2023-02-15",
+    "note": "Hàng mới nhập"
+  },
+  {
+    "name": "Gạo ST25",
+    "sku": "SKU005",
+    "quantity": 500,
+    "unit": "kg",
+    "importPrice": 20000,
+    "salePrice": 25000,
+    "supplier": "Công ty Lương thực",
+    "importDate": "2023-01-20",
+    "note": "Gạo ngon nhất"
+  },
+  {
+    "name": "Bánh quy",
+    "sku": "SKU006",
+    "quantity": 300,
+    "unit": "hộp",
+    "importPrice": 40000,
+    "salePrice": 50000,
+    "supplier": "Công ty Bánh kẹo",
+    "importDate": "2023-02-01",
+    "note": "Hạn sử dụng 6 tháng"
+  },
+  {
+    "name": "Nước ngọt",
+    "sku": "SKU007",
+    "quantity": 200,
+    "unit": "thùng",
+    "importPrice": 150000,
+    "salePrice": 180000,
+    "supplier": "Công ty Nước giải khát",
+    "importDate": "2023-01-25",
+    "note": "Chai 330ml"
+  },
+  {
+    "name": "Vở học sinh",
+    "sku": "SKU008",
+    "quantity": 1000,
+    "unit": "quyển",
+    "importPrice": 5000,
+    "salePrice": 7000,
+    "supplier": "Nhà sách",
+    "importDate": "2023-02-10",
+    "note": "96 trang"
+  }
+]
