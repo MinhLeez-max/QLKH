@@ -1,0 +1,258 @@
+[
+  {
+    "productId": "60d21b4667d0d8992e610c85",
+    "action": "import",
+    "quantity": 100,
+    "date": "2024-01-01T08:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c85",
+    "action": "export",
+    "quantity": 20,
+    "date": "2024-01-05T10:30:00Z",
+    "user": "manager",
+    "note": "Exported to customer A"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c86",
+    "action": "import",
+    "quantity": 50,
+    "date": "2024-01-02T09:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c86",
+    "action": "export",
+    "quantity": 10,
+    "date": "2024-01-06T11:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer B"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c87",
+    "action": "import",
+    "quantity": 200,
+    "date": "2024-01-03T08:30:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c87",
+    "action": "export",
+    "quantity": 50,
+    "date": "2024-01-07T14:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer C"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c88",
+    "action": "import",
+    "quantity": 150,
+    "date": "2024-01-04T09:15:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c88",
+    "action": "export",
+    "quantity": 30,
+    "date": "2024-01-08T15:30:00Z",
+    "user": "manager",
+    "note": "Exported to customer D"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c89",
+    "action": "import",
+    "quantity": 120,
+    "date": "2024-01-05T10:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c89",
+    "action": "export",
+    "quantity": 40,
+    "date": "2024-01-09T16:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer E"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c90",
+    "action": "import",
+    "quantity": 80,
+    "date": "2024-01-06T11:30:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c90",
+    "action": "export",
+    "quantity": 25,
+    "date": "2024-01-10T17:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer F"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c91",
+    "action": "import",
+    "quantity": 90,
+    "date": "2024-01-07T12:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c91",
+    "action": "export",
+    "quantity": 35,
+    "date": "2024-01-11T18:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer G"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c92",
+    "action": "import",
+    "quantity": 110,
+    "date": "2024-01-08T13:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c92",
+    "action": "export",
+    "quantity": 45,
+    "date": "2024-01-12T19:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer H"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c93",
+    "action": "import",
+    "quantity": 130,
+    "date": "2024-01-09T14:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c93",
+    "action": "export",
+    "quantity": 55,
+    "date": "2024-01-13T20:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer I"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c94",
+    "action": "import",
+    "quantity": 140,
+    "date": "2024-01-10T15:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c94",
+    "action": "export",
+    "quantity": 60,
+    "date": "2024-01-14T21:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer J"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c95",
+    "action": "import",
+    "quantity": 150,
+    "date": "2024-01-11T16:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c95",
+    "action": "export",
+    "quantity": 65,
+    "date": "2024-01-15T22:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer K"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c96",
+    "action": "import",
+    "quantity": 160,
+    "date": "2024-01-12T17:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c96",
+    "action": "export",
+    "quantity": 70,
+    "date": "2024-01-16T23:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer L"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c97",
+    "action": "import",
+    "quantity": 170,
+    "date": "2024-01-13T18:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c97",
+    "action": "export",
+    "quantity": 75,
+    "date": "2024-01-17T00:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer M"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c98",
+    "action": "import",
+    "quantity": 180,
+    "date": "2024-01-14T19:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c98",
+    "action": "export",
+    "quantity": 80,
+    "date": "2024-01-18T01:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer N"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c99",
+    "action": "import",
+    "quantity": 190,
+    "date": "2024-01-15T20:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c99",
+    "action": "export",
+    "quantity": 85,
+    "date": "2024-01-19T02:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer O"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c100",
+    "action": "import",
+    "quantity": 200,
+    "date": "2024-01-16T21:00:00Z",
+    "user": "admin",
+    "note": "Initial stock import"
+  },
+  {
+    "productId": "60d21b4667d0d8992e610c100",
+    "action": "export",
+    "quantity": 90,
+    "date": "2024-01-20T03:00:00Z",
+    "user": "manager",
+    "note": "Exported to customer P"
+  }
+]

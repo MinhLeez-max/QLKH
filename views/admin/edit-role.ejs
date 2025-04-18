@@ -1,0 +1,80 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<link rel="stylesheet" href="/stylesheets/edit-role.css">
+
+
+<div class="form-container">
+  <div class="card form-card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">
+          <i class="fas fa-shield-alt me-2"></i>Chỉnh sửa vai trò
+        </h3>
+        <a href="/admin/roles" class="btn btn-secondary">
+          <i class="fas fa-arrow-left me-1"></i>Quay lại
+        </a>
+      </div>
+    </div>
+
+    <div class="card-body p-4">
+      <% if (typeof error !== 'undefined') { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+      
+      <form action="/admin/roles/<%= role.name %>/edit" method="POST">
+        <div class="mb-3">
+          <label for="newRole" class="form-label required-field">Tên vai trò mới</label>
+          <input type="text" class="form-control" id="newRole" name="newRole" required value="<%= role.name %>">
+        </div>
+        <div class="mb-3">
+          <label class="form-label required-field">Chức năng</label>
+          <div>
+          <% const allPermissions = [
+              { value: 'view_products', label: 'Xem sản phẩm' },
+              { value: 'view_inventory', label: 'Xem kho hàng' },
+              { value: 'approve_requests', label: 'Phê duyệt yêu cầu' },
+              { value: 'manage_users', label: 'Quản lý người dùng' },
+              { value: 'manage_roles', label: 'Quản lý vai trò' },
+              { value: 'edit_product', label: 'Sửa sản phẩm' },
+              { value: 'delete_product', label: 'Xóa sản phẩm' }
+            ]; %>
+            <% allPermissions.forEach(permission => { %>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="permissions" value="<%= permission.value %>" id="perm_<%= permission.value %>" <%= role.permissions.includes(permission.value) ? 'checked' : '' %>>
+                <label class="form-check-label" for="perm_<%= permission.value %>">
+                  <%= permission.label %>
+                </label>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+        <div class="d-flex gap-2 justify-content-center mt-4">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save me-2"></i>Cập nhật vai trò
+          </button>
+          <a href="/admin/roles" class="btn btn-secondary">Hủy</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const currentUserPermissions = <%- JSON.stringify(currentUserPermissions || []) %>;
+    const checkboxes = document.querySelectorAll('input[name="permissions"]');
+
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function (e) {
+        const permission = e.target.value;
+        if (!currentUserPermissions.includes(permission)) {
+          alert('Bạn không có quyền cấp chức năng này: ' + permission);
+          e.target.checked = false;
+        }
+      });
+    });
+  });
+</script>
+
+<%- include('../partials/footer') %>

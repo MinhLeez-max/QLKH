@@ -76,6 +76,12 @@
 <body>
     <%- include('partials/header') %>
     
+    <% if (typeof alert !== 'undefined' && alert) { %>
+      <script>
+        alert("<%= alert %>");
+      </script>
+    <% } %>
+
     <div class="form-container">
         <div class="card form-card">
             <div class="card-header">
@@ -90,7 +96,7 @@
             </div>
             
             <div class="card-body p-4">
-                <form action="/products/update" method="POST">
+                <form action="/products/update" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<%= product._id %>">
                     <div class="row g-4">
                         <div class="col-md-6">
@@ -99,23 +105,30 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label required-field">Mã SKU</label>
-                            <input type="text" class="form-control" name="sku" value="<%= product.sku %>" required>
+                            <label class="form-label required-field">Loại</label>
+                            <input type="text" class="form-control" name="type" value="<%= product.type %>" required>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="form-label required-field">Số lượng</label>
                             <input type="number" class="form-control" name="quantity" min="0" value="<%= product.quantity %>" required>
                         </div>
 
-                        <div class="col-md-4">
-                            <label class="form-label required-field">Giá nhập (VND)</label>
-                            <input type="number" class="form-control" name="importPrice" step="1000" value="<%= product.importPrice %>" required>
+                        <div class="col-md-6">
+                            <label class="form-label">Hình ảnh hiện tại</label>
+                            <div>
+                              <img src="<%= product.image %>" alt="<%= product.name %>" style="width: 100px; height: auto; border-radius: 5px;">
+                            </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <label class="form-label required-field">Giá bán (VND)</label>
-                            <input type="number" class="form-control" name="salePrice" step="1000" value="<%= product.salePrice %>" required>
+                        <div class="col-md-6">
+                            <label class="form-label">Thay đổi hình ảnh</label>
+                            <input type="file" class="form-control" name="image" accept="image/*">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Mô tả</label>
+                            <textarea class="form-control" name="description" rows="3"><%= product.description %></textarea>
                         </div>
 
                         <div class="col-12 mt-4 text-center">

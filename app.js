@@ -10,6 +10,9 @@ const productRoutes = require('./routes/productRoutes');
 const inventoryRoutes = require('./routes/inventoryRoutes');
 const authRoutes = require('./routes/authRoutes'); 
 const chartRoutes = require('./routes/chartRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const adminRoleRoutes = require('./routes/adminRoleRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 const app = express();
 
@@ -52,18 +55,35 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Kết nối database
 connectDB();
 
-// Import dashboard controller
-const dashboardController = require('./controllers/dashboardController');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 
 // Route dashboard
-app.get('/', dashboardController.getDashboard);
+app.use('/', dashboardRoutes);
+app.use('/dashboard', dashboardRoutes);
 
 // Middleware redirect cho các URL cũ
 app.use((req, res, next) => {
-  if (req.path === '/product/list' || req.path === '/products/list') {
+  if (req.originalUrl === '/login') {
+    return res.redirect('/auth/login');
+  }
+  if (req.originalUrl.startsWith('/product/list') || req.originalUrl.startsWith('/products/list')) {
     return res.redirect('/products');
   }
+  if (req.originalUrl.startsWith('/inventory-history')) {
+    return res.redirect('/inventory/history');
+  }
+  if (req.originalUrl.startsWith('/dashboard-old')) {
+    return res.redirect('/dashboard');
+  }
+  if (req.originalUrl.startsWith('/old-inventory-history')) {
+    return res.redirect('/inventory/history');
+  }
   next();
+});
+
+// Thêm route riêng cho /login để tránh lỗi 404
+app.get('/login', (req, res) => {
+  res.render('login');
 });
 
 app.use('/auth', authRoutes); // Thêm route cho xác thực người dùng
@@ -71,6 +91,15 @@ app.use('/api/charts', chartRoutes);
 app.use('/charts', chartRoutes); // Thêm route cho trang biểu đồ
 app.use('/inventory', inventoryRoutes);
 app.use('/products', productRoutes);
+app.use('/admin', adminRoutes);
+app.use('/admin', adminRoleRoutes);
+app.use('/', profileRoutes);
+
+// Thêm route /inventory-history trực tiếp để tránh lỗi 404
+const inventoryController = require('./controllers/inventoryController');
+const { authenticate, authorize } = require('./middlewares/authMiddleware');
+// Removed direct route for inventory-history, will move to inventoryRoutes
+// app.get('/inventory-history', authenticate, authorize(['admin', 'manager', 'user']), inventoryController.getInventoryHistory);
 
 // Xử lý lỗi
 app.use((req, res, next) => {

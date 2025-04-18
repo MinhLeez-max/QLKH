@@ -3,31 +3,15 @@
 <head>
   <%- include('partials/head') %>
   <title>Xuất kho</title>
-  <style>
-    .form-label {
-      font-weight: 500;
-    }
-    .card {
-      border-radius: 10px;
-    }
-    .btn-danger:hover {
-      background-color: #bb2d3b;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .form-control:focus, .form-select:focus {
-      border-color: #dc3545;
-      box-shadow: 0 0 0 0.25rem rgba(220,53,69,.25);
-    }
-  </style>
+  <link rel="stylesheet" href="/stylesheets/inventory-export.css">
 </head>
-<body>
+<body style="padding-top: 10%;">
   <%- include('partials/header') %>
 
   <div class="container py-4">
-    <div class="card shadow">
-      <div class="card-header bg-danger text-white">
-        <h4><i class="fas fa-arrow-up me-2"></i>Xuất kho</h4>
+    <div class="card shadow-lg">
+      <div class="card-header">
+        <h4 class="text-white"><i class="fas fa-arrow-up me-2"></i>Xuất kho</h4>
       </div>
 
       <div class="card-body">
@@ -36,31 +20,25 @@
           
           <div class="row mb-3">
             <div class="col-md-6 mb-3 mb-md-0">
-              <label class="form-label">Sản phẩm</label>
+              <label class="form-label"><i class="fas fa-box-open me-2"></i>Sản phẩm</label>
               <select name="productId" class="form-select" id="productSelect" required>
                 <% products.forEach(product => { %>
                   <option value="<%= product._id %>" 
                     data-quantity="<%= product.quantity %>">
-                    <%= product.name %> (Hiện có: <%= product.quantity %>)
+                    <%= product.name %> - <%= product.type %> (Hiện có: <%= product.quantity %>)
                   </option>
-                <% }); %>
+                <% }) %>
               </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label">Số lượng</label>
+              <label class="form-label"><i class="fas fa-sort-numeric-up me-2"></i>Số lượng</label>
               <input type="number" name="quantity" class="form-control" id="quantityInput" min="1" required>
             </div>
           </div>
 
-          <div class="row mb-3">
-            <div class="col-md-6 mb-3 mb-md-0">
-              <label class="form-label">Ngày xuất</label>
-              <input type="date" name="date" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Ghi chú</label>
-              <input type="text" name="note" class="form-control">
-            </div>
+          <div class="mb-3">
+            <label class="form-label"><i class="fas fa-sticky-note me-2"></i>Ghi chú</label>
+            <textarea name="note" class="form-control" rows="3" placeholder="Nhập ghi chú (nếu có)"></textarea>
           </div>
 
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">

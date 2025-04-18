@@ -8,6 +8,7 @@ const HistorySchema = new Schema({
   quantity: { type: Number, required: true }, // Số lượng nhập/xuất
   date: { type: Date, default: Date.now }, // Ngày thực hiện hành động
   note: { type: String, default: '' }, // Ghi chú (tuỳ chọn)
+  status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' }, // Trạng thái phê duyệt
 });
 
 const History = mongoose.model('History', HistorySchema);

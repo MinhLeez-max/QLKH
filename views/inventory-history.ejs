@@ -1,24 +1,121 @@
-<h2>Lịch Sử Tồn Kho</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Ngày</th>
-      <th>Sản phẩm</th>
-      <th>Hành động</th>
-      <th>Số lượng</th>
-      <th>Ghi chú</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% histories.forEach(item => { %>
-      <tr>
-        <td><%= item.date.toLocaleString() %></td>
-        <td><%= item.productId.name %> (<%= item.productId.sku %>)</td>
-        <td><%= item.action === 'import' ? 'Nhập kho' : 'Xuất kho' %></td>
-        <td><%= item.quantity %></td>
-        <td><%= item.note || 'Không có ghi chú' %></td>
-      </tr>
-    <% }); %>
-  </tbody>
-</table>
-<a href="<%= backUrl %>" class="btn btn-primary">Quay lại</a>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <%- include('partials/head') %>
+  <title>Lịch sử nhập xuất kho</title>
+  <link rel="stylesheet" href="/stylesheets/inventory-history.css">
+</head>
+<body style="padding-top: 7%;">
+  <%- include('partials/header') %>
+
+  <div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="text-dark"><i class="fas fa-history me-2"></i>Lịch sử nhập xuất kho</h2>
+    </div>
+
+    <div class="card shadow-lg mb-4">
+      <div class="card-body">
+        <form method="GET" action="/inventory/history" class="filter-form" aria-label="Form tìm kiếm và lọc lịch sử nhập xuất kho">
+          <input type="text" name="search" placeholder="Tìm sản phẩm..." value="<%= search %>" aria-label="Tìm sản phẩm">
+          <select name="action" aria-label="Lọc theo loại hành động">
+            <option value="">Tất cả loại hành động</option>
+            <option value="import" <%= filterAction === 'import' ? 'selected' : '' %>>Nhập kho</option>
+            <option value="export" <%= filterAction === 'export' ? 'selected' : '' %>>Xuất kho</option>
+          </select>
+          <input type="number" name="minQuantity" placeholder="Số lượng tối thiểu" min="0" value="<%= minQuantity !== null ? minQuantity : '' %>" aria-label="Số lượng tối thiểu">
+          <input type="number" name="maxQuantity" placeholder="Số lượng tối đa" min="0" value="<%= maxQuantity !== null ? maxQuantity : '' %>" aria-label="Số lượng tối đa">
+          <input type="date" name="startDate" value="<%= startDate %>" aria-label="Ngày bắt đầu">
+          <input type="date" name="endDate" value="<%= endDate %>" aria-label="Ngày kết thúc">
+          <select name="status" aria-label="Lọc theo trạng thái">
+            <option value="">Tất cả trạng thái</option>
+            <option value="pending" <%= filterStatus === 'pending' ? 'selected' : '' %>>Pending</option>
+            <option value="approved" <%= filterStatus === 'approved' ? 'selected' : '' %>>Approved</option>
+            <option value="rejected" <%= filterStatus === 'rejected' ? 'selected' : '' %>>Rejected</option>
+          </select>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-filter me-2"></i>Lọc</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card shadow-lg">
+      <div class="card-header">
+        <h4 class="text-white"><i class="fas fa-table me-2"></i>Danh sách lịch sử</h4>
+      </div>
+      <div class="card-body table-responsive">
+        <% if (histories.length === 0) { %>
+          <p class="text-center">Chưa có lịch sử nhập xuất kho nào.</p>
+        <% } else { %>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Loại hành động</th>
+                <th>Số lượng</th>
+                <th>Ngày thực hiện</th>
+                <th>Ghi chú</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% histories.forEach(history => { %>
+                <tr>
+                  <td><%= history.productId ? history.productId.name : 'Sản phẩm đã bị xóa' %> (SKU: <%= history.productId ? history.productId.sku : 'N/A' %>)</td>
+                  <td>
+                    <% if (history.action === 'import') { %>
+                      <span class="badge badge-import">Nhập kho</span>
+                    <% } else { %>
+                      <span class="badge badge-export">Xuất kho</span>
+                    <% } %>
+                  </td>
+                  <td><%= history.quantity %></td>
+                  <td><%= new Date(history.date).toLocaleDateString() %></td>
+                  <td><%= history.note || '' %></td>
+                  <td><%= history.status %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } %>
+      </div>
+    </div>
+
+    <% if (totalPages > 1) { %>
+      <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+          <% if (currentPage > 1) { %>
+            <li class="page-item">
+              <a class="page-link" href="?page=<%= currentPage - 1 %>&search=<%= encodeURIComponent(search) %>&action=<%= filterAction %>&minQuantity=<%= minQuantity !== null ? minQuantity : '' %>&maxQuantity=<%= maxQuantity !== null ? maxQuantity : '' %>&startDate=<%= startDate %>&endDate=<%= endDate %>&status=<%= filterStatus %>" aria-label="Trang trước">
+                <span aria-hidden="true">«</span>
+              </a>
+            </li>
+          <% } else { %>
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">«</span>
+            </li>
+          <% } %>
+
+          <% for(let i = 1; i <= totalPages; i++) { %>
+            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+              <a class="page-link" href="?page=<%= i %>&search=<%= encodeURIComponent(search) %>&action=<%= filterAction %>&minQuantity=<%= minQuantity !== null ? minQuantity : '' %>&maxQuantity=<%= maxQuantity !== null ? maxQuantity : '' %>&startDate=<%= startDate %>&endDate=<%= endDate %>&status=<%= filterStatus %>"><%= i %></a>
+            </li>
+          <% } %>
+
+          <% if (currentPage < totalPages) { %>
+            <li class="page-item">
+              <a class="page-link" href="?page=<%= currentPage + 1 %>&search=<%= encodeURIComponent(search) %>&action=<%= filterAction %>&minQuantity=<%= minQuantity !== null ? minQuantity : '' %>&maxQuantity=<%= maxQuantity !== null ? maxQuantity : '' %>&startDate=<%= startDate %>&endDate=<%= endDate %>&status=<%= filterStatus %>" aria-label="Trang sau">
+                <span aria-hidden="true">»</span>
+              </a>
+            </li>
+          <% } else { %>
+            <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">»</span>
+            </li>
+          <% } %>
+        </ul>
+      </nav>
+    <% } %>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

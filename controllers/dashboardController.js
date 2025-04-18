@@ -23,6 +23,46 @@ exports.getDashboard = async (req, res) => {
             lowStock: lowStockItems
         };
 
+        // Thêm dữ liệu biểu đồ số lượng sản phẩm theo loại
+        const quantityByType = await Product.aggregate([
+            { $group: { _id: "$type", totalQuantity: { $sum: "$quantity" } } }
+        ]);
+
+        // Thêm dữ liệu biểu đồ số lượng nhập/xuất theo ngày trong 7 ngày gần nhất
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6); // 7 ngày tính cả hôm nay
+
+        const inventoryActionsByDay = await History.aggregate([
+            { $match: { date: { $gte: sevenDaysAgo } } },
+            {
+                $group: {
+                    _id: {
+                        day: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                        action: "$action"
+                    },
+                    count: { $sum: 1 }
+                }
+            },
+            { $sort: { "_id.day": 1 } }
+        ]);
+
+        // Chuẩn bị dữ liệu cho biểu đồ line
+        const days = [];
+        for (let i = 0; i < 7; i++) {
+            const d = new Date(sevenDaysAgo);
+            d.setDate(d.getDate() + i);
+            days.push(d.toISOString().slice(0, 10));
+        }
+
+        const importCounts = [];
+        const exportCounts = [];
+        days.forEach(day => {
+            const importData = inventoryActionsByDay.find(item => item._id.day === day && item._id.action === 'import');
+            const exportData = inventoryActionsByDay.find(item => item._id.day === day && item._id.action === 'export');
+            importCounts.push(importData ? importData.count : 0);
+            exportCounts.push(exportData ? exportData.count : 0);
+        });
+
         console.log('Dữ liệu trước khi render:');
         console.log('Stats:', {
             totalProducts,
@@ -32,6 +72,31 @@ exports.getDashboard = async (req, res) => {
         });
         console.log('Activities:', recentActivities);
         console.log('ChartData:', chartData);
+        console.log('QuantityByType:', quantityByType);
+        console.log('InventoryActionsByDay:', { days, importCounts, exportCounts });
+
+        // Thêm dữ liệu biểu đồ phân bố sản phẩm theo nhà cung cấp
+        const productCountBySupplier = await Product.aggregate([
+            { $group: { _id: "$supplier", count: { $sum: 1 } } }
+        ]);
+
+        // Thêm dữ liệu biểu đồ số lượng sản phẩm thêm mới theo ngày trong 7 ngày gần nhất
+        const productAdditionsByDayAgg = await Product.aggregate([
+            { $match: { createdAt: { $gte: sevenDaysAgo } } },
+            {
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+                    count: { $sum: 1 }
+                }
+            },
+            { $sort: { _id: 1 } }
+        ]);
+
+        const productAdditionsByDay = [];
+        days.forEach(day => {
+            const dayData = productAdditionsByDayAgg.find(item => item._id === day);
+            productAdditionsByDay.push(dayData ? dayData.count : 0);
+        });
 
         res.render('dashboard', {
             stats: {
@@ -44,7 +109,11 @@ exports.getDashboard = async (req, res) => {
                 ...activity.toObject(),
                 productId: activity.productId || { name: 'Đã xóa' }
             })),
-            chartData
+            chartData,
+            quantityByType,
+            inventoryActionsByDayData: { days, importCounts, exportCounts },
+            productCountBySupplier,
+            productAdditionsByDayData: { days, counts: productAdditionsByDay }
         });
     } catch (error) {
         console.error('Lỗi khi lấy dữ liệu dashboard:', error);

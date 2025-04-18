@@ -18,22 +18,32 @@ exports.register = async (req, res) => {
 // Đăng xuất
 exports.logout = (req, res) => {
   res.clearCookie('token');
-  res.status(200).json({ message: 'Đăng xuất thành công' });
+  res.redirect('/auth/login');
 };
 
-// Đăng nhập người dùng
 exports.login = async (req, res) => {
   const { email, password } = req.body;
+
+  // Server-side validation
+  if (!email || !password) {
+    return res.redirect('/auth/login?error=Vui lòng nhập đầy đủ email và mật khẩu.');
+  }
+
+  // Simple email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.redirect('/auth/login?error=Email không hợp lệ.');
+  }
 
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ error: 'Người dùng không tồn tại.' });
+      return res.redirect('/auth/login?error=Người dùng không tồn tại.');
     }
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'Mật khẩu không đúng.' });
+      return res.redirect('/auth/login?error=Mật khẩu không đúng.');
     }
 
     // Tạo token và set cookie
@@ -53,6 +63,6 @@ exports.login = async (req, res) => {
     res.redirect('/');
   } catch (err) {
     console.error('Lỗi khi đăng nhập:', err);
-    res.status(500).json({ error: 'Đã xảy ra lỗi khi đăng nhập.' });
+    res.redirect('/auth/login?error=Đã xảy ra lỗi khi đăng nhập.');
   }
 };

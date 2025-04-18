@@ -1,90 +1,186 @@
 [
   {
-    "name": "Sản phẩm A",
     "sku": "SKU001",
-    "quantity": 100,
-    "unit": "cái",
-    "importPrice": 50000,
-    "salePrice": 60000,
-    "supplier": "Nhà cung cấp 1",
-    "importDate": "2023-01-01",
-    "note": "Ghi chú sản phẩm A"
-  },
-  {
-    "name": "Sản phẩm B",
-    "sku": "SKU002",
-    "quantity": 200,
-    "unit": "cái",
-    "importPrice": 30000,
-    "salePrice": 40000,
-    "supplier": "Nhà cung cấp 2",
-    "importDate": "2023-01-02",
-    "note": "Ghi chú sản phẩm B"
-  },
-  {
-    "name": "Sản phẩm C",
-    "sku": "SKU003",
-    "quantity": 150,
-    "unit": "cái",
-    "importPrice": 70000,
-    "salePrice": 80000,
-    "supplier": "Nhà cung cấp 3",
-    "importDate": "2023-01-03",
-    "note": "Ghi chú sản phẩm C"
-  },
-  {
-    "name": "Điện thoại X",
-    "sku": "SKU004",
+    "image": "/images/products/ak40.png",
+    "name": "ak40",
+    "type": "Súng trường",
     "quantity": 50,
-    "unit": "chiếc",
-    "importPrice": 5000000,
-    "salePrice": 6500000,
-    "supplier": "Công ty Điện tử",
-    "importDate": "2023-02-15",
-    "note": "Hàng mới nhập"
+    "description": "Mô tả cho sản phẩm ak40"
   },
   {
-    "name": "Gạo ST25",
+    "sku": "SKU002",
+    "image": "/images/products/ak47.png",
+    "name": "ak47",
+    "type": "Súng trường",
+    "quantity": 40,
+    "description": "Mô tả cho sản phẩm ak47"
+  },
+  {
+    "sku": "SKU003",
+    "image": "/images/products/aug.png",
+    "name": "aug",
+    "type": "Súng trường",
+    "quantity": 30,
+    "description": "Mô tả cho sản phẩm aug"
+  },
+  {
+    "sku": "SKU004",
+    "image": "/images/products/awm.png",
+    "name": "awm",
+    "type": "Súng trường",
+    "quantity": 25,
+    "description": "Mô tả cho sản phẩm awm"
+  },
+  {
     "sku": "SKU005",
-    "quantity": 500,
-    "unit": "kg",
-    "importPrice": 20000,
-    "salePrice": 25000,
-    "supplier": "Công ty Lương thực",
-    "importDate": "2023-01-20",
-    "note": "Gạo ngon nhất"
+    "image": "/images/products/BomKeo.png",
+    "name": "BomKeo",
+    "type": "Vật phẩm",
+    "quantity": 100,
+    "description": "Mô tả cho sản phẩm BomKeo"
   },
   {
-    "name": "Bánh quy",
     "sku": "SKU006",
-    "quantity": 300,
-    "unit": "hộp",
-    "importPrice": 40000,
-    "salePrice": 50000,
-    "supplier": "Công ty Bánh kẹo",
-    "importDate": "2023-02-01",
-    "note": "Hạn sử dụng 6 tháng"
+    "image": "/images/products/BomKeoBinhThuong.png",
+    "name": "BomKeoBinhThuong",
+    "type": "Vật phẩm",
+    "quantity": 60,
+    "description": "Mô tả cho sản phẩm BomKeoBinhThuong"
   },
   {
-    "name": "Nước ngọt",
     "sku": "SKU007",
-    "quantity": 200,
-    "unit": "thùng",
-    "importPrice": 150000,
-    "salePrice": 180000,
-    "supplier": "Công ty Nước giải khát",
-    "importDate": "2023-01-25",
-    "note": "Chai 330ml"
+    "image": "/images/products/DesertEagle.png",
+    "name": "DesertEagle",
+    "type": "Súng lục",
+    "quantity": 45,
+    "description": "Mô tả cho sản phẩm DesertEagle"
   },
   {
-    "name": "Vở học sinh",
     "sku": "SKU008",
-    "quantity": 1000,
-    "unit": "quyển",
-    "importPrice": 5000,
-    "salePrice": 7000,
-    "supplier": "Nhà sách",
-    "importDate": "2023-02-10",
-    "note": "96 trang"
+    "image": "/images/products/ka98.png",
+    "name": "ka98",
+    "type": "Súng trường",
+    "quantity": 50,
+    "description": "Mô tả cho sản phẩm ka98"
+  },
+  {
+    "sku": "SKU009",
+    "image": "/images/products/luu dan.png",
+    "name": "luu dan",
+    "type": "Vật phẩm",
+    "quantity": 40,
+    "description": "Mô tả cho sản phẩm luu dan"
+  },
+  {
+    "sku": "SKU010",
+    "image": "/images/products/m4a1.png",
+    "name": "m4a1",
+    "type": "Súng trường",
+    "quantity": 30,
+    "description": "Mô tả cho sản phẩm m4a1"
+  },
+  {
+    "sku": "SKU011",
+    "image": "/images/products/m14.png",
+    "name": "m14",
+    "type": "Súng trường",
+    "quantity": 25,
+    "description": "Mô tả cho sản phẩm m14"
+  },
+  {
+    "sku": "SKU012",
+    "image": "/images/products/m82b.png",
+    "name": "m82b",
+    "type": "Súng trường",
+    "quantity": 100,
+    "description": "Mô tả cho sản phẩm m82b"
+  },
+  {
+    "sku": "SKU013",
+    "image": "/images/products/m500.png",
+    "name": "m500",
+    "type": "Súng lục",
+    "quantity": 60,
+    "description": "Mô tả cho sản phẩm m500"
+  },
+  {
+    "sku": "SKU014",
+    "image": "/images/products/m1014-thanhlong.png",
+    "name": "m1014-thanhlong",
+    "type": "Súng trường",
+    "quantity": 45,
+    "description": "Mô tả cho sản phẩm m1014-thanhlong"
+  },
+  {
+    "sku": "SKU015",
+    "image": "/images/products/m1014.png",
+    "name": "m1014",
+    "type": "Súng trường",
+    "quantity": 50,
+    "description": "Mô tả cho sản phẩm m1014"
+  },
+  {
+    "sku": "SKU016",
+    "image": "/images/products/mp5.png",
+    "name": "mp5",
+    "type": "Súng tiểu liên",
+    "quantity": 40,
+    "description": "Mô tả cho sản phẩm mp5"
+  },
+  {
+    "sku": "SKU017",
+    "image": "/images/products/mp40-mangxa.png",
+    "name": "mp40-mangxa",
+    "type": "Súng tiểu liên",
+    "quantity": 30,
+    "description": "Mô tả cho sản phẩm mp40-mangxa"
+  },
+  {
+    "sku": "SKU018",
+    "image": "/images/products/mp40.png",
+    "name": "mp40",
+    "type": "Súng tiểu liên",
+    "quantity": 25,
+    "description": "Mô tả cho sản phẩm mp40"
+  },
+  {
+    "sku": "SKU019",
+    "image": "/images/products/sks.png",
+    "name": "sks",
+    "type": "Súng trường",
+    "quantity": 100,
+    "description": "Mô tả cho sản phẩm sks"
+  },
+  {
+    "sku": "SKU020",
+    "image": "/images/products/ump-khunglong.png",
+    "name": "ump-khunglong",
+    "type": "Súng tiểu liên",
+    "quantity": 60,
+    "description": "Mô tả cho sản phẩm ump-khunglong"
+  },
+  {
+    "sku": "SKU021",
+    "image": "/images/products/ump.png",
+    "name": "ump",
+    "type": "Súng tiểu liên",
+    "quantity": 45,
+    "description": "Mô tả cho sản phẩm ump"
+  },
+  {
+    "sku": "SKU022",
+    "image": "/images/products/vss.png",
+    "name": "vss",
+    "type": "Súng trường",
+    "quantity": 50,
+    "description": "Mô tả cho sản phẩm vss"
+  },
+  {
+    "sku": "SKU023",
+    "image": "/images/products/XeHoi.png",
+    "name": "XeHoi",
+    "type": "Xe",
+    "quantity": 40,
+    "description": "Mô tả cho sản phẩm XeHoi"
   }
 ]

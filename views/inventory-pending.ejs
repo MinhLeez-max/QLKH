@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <%- include('partials/head') %>
+  <title>Yêu cầu nhập xuất kho chờ phê duyệt</title>
+  <link rel="stylesheet" href="/stylesheets/spending.css">
+</head>
+<body style="padding-top: 7% ;">
+  <%- include('partials/header') %>
+
+  <div class="container py-4">
+    <h2 class="mb-4">Danh sách yêu cầu nhập xuất kho chờ phê duyệt</h2>
+    <div class="card">
+      <% if (pendingRequests.length === 0) { %>
+        <p class="no-data">Không có yêu cầu nào đang chờ phê duyệt.</p>
+      <% } else { %>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Loại hành động</th>
+                <th>Số lượng</th>
+                <th>Ngày yêu cầu</th>
+                <th>Ghi chú</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% pendingRequests.forEach(request => { %>
+                <tr>
+                  <td><%= request.productId ? request.productId.name : 'Sản phẩm đã bị xóa' %> (SKU: <%= request.productId ? request.productId.sku : 'N/A' %>)</td>
+                  <td><%= request.action === 'import' ? 'Nhập kho' : 'Xuất kho' %></td>
+                  <td><%= request.quantity %></td>
+                  <td><%= new Date(request.date).toLocaleDateString('vi-VN') %></td>
+                  <td><%= request.note || '-' %></td>
+                  <td><%= request.status %></td>
+                  <td>
+                    <form action="/inventory/pending/<%= request._id %>/approve" method="POST" style="display:inline-block;">
+                      <button type="submit" class="btn-primary">Phê duyệt</button>
+                    </form>
+                    <form action="/inventory/pending/<%= request._id %>/reject" method="POST" style="display:inline-block; margin-left: 8px;">
+                      <button type="submit" class="btn-reject">Từ chối</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

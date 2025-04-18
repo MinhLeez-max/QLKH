@@ -1,0 +1,36 @@
+[
+  {
+    "name": "admin",
+    "permissions": [
+      "manage_users",
+      "manage_roles",
+      "view_reports",
+      "edit_inventory",
+      "view_inventory",
+      "edit_product",
+      "delete_product"
+    ]
+  },
+  {
+    "name": "warehouse_manager",
+    "permissions": [
+      "edit_inventory",
+      "view_inventory"
+    ]
+  },
+  {
+    "name": "manager",
+    "permissions": [
+      "view_reports",
+      "view_inventory",
+      "edit_product",
+      "delete_product"
+    ]
+  },
+  {
+    "name": "user",
+    "permissions": [
+      "view_inventory"
+    ]
+  }
+]

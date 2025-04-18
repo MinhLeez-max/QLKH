@@ -11,15 +11,37 @@ exports.getAddProductPage = (req, res) => {
 exports.getProductList = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = 10; // 10 sản phẩm mỗi trang
+    const limit = 7; // 7 sản phẩm mỗi trang
     const skip = (page - 1) * limit;
 
+    const search = req.query.search || '';
+    const filterType = req.query.type || '';
+    const minQuantity = req.query.minQuantity ? parseInt(req.query.minQuantity) : null;
+    const maxQuantity = req.query.maxQuantity ? parseInt(req.query.maxQuantity) : null;
+
+    // Build query object
+    let query = {};
+    if (search) {
+      query.name = { $regex: search, $options: 'i' };
+    }
+    if (filterType) {
+      query.type = filterType;
+    }
+    if (minQuantity !== null || maxQuantity !== null) {
+      query.quantity = {};
+      if (minQuantity !== null) {
+        query.quantity.$gte = minQuantity;
+      }
+      if (maxQuantity !== null) {
+        query.quantity.$lte = maxQuantity;
+      }
+    }
+
     const [products, total] = await Promise.all([
-      Product.find().skip(skip).limit(limit),
-      Product.countDocuments()
+      Product.find(query).skip(skip).limit(limit),
+      Product.countDocuments(query)
     ]);
 
-    console.log('Request headers:', req.headers);
     // Trả về JSON khi:
     // 1. Có query param ?format=json
     // 2. Hoặc có header Accept: application/json
@@ -31,11 +53,20 @@ exports.getProductList = async (req, res) => {
       });
     }
     
+    // Lấy danh sách các loại sản phẩm để hiển thị filter
+    const types = await Product.distinct('type');
+
     // Mặc định render view EJS cho trình duyệt
     res.render('product-list', { 
       products: products.map(p => p.toObject()),
       totalPages: Math.ceil(total / limit),
-      currentPage: page
+      currentPage: page,
+      search,
+      filterType,
+      minQuantity,
+      maxQuantity,
+      types,
+      alert: req.query.alert || null
     });
   } catch (err) {
     console.error('Lỗi khi lấy danh sách sản phẩm:', err);
@@ -47,6 +78,24 @@ exports.getProductList = async (req, res) => {
 exports.getUpdateProductPage = async (req, res) => {
   const id = req.params.id;
   try {
+    // Check user permission here (assuming req.user.permissions is array of user's permissions)
+    if (!req.user || !req.user.permissions.includes('edit_product')) {
+      // Render edit-product page with alert message instead of redirect
+      let product;
+      if (mongoose.Types.ObjectId.isValid(req.params.id)) {
+        product = await Product.findById(req.params.id);
+      } else {
+        product = await Product.findOne({ sku: req.params.id });
+      }
+      if (!product) {
+        return res.status(404).send('Sản phẩm không tồn tại');
+      }
+      return res.render('update-product', {
+        product: product.toObject(),
+        alert: 'Bạn không có quyền sửa sản phẩm.'
+      });
+    }
+
     let product;
     // Kiểm tra nếu id là ObjectId
     if (mongoose.Types.ObjectId.isValid(id)) {
