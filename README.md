@@ -1,6 +1,6 @@
 # FiFai_QLKH
 
-This is the FiFai_QLKH project. HEHEHEHHe
+This is the FiFai_QLKH project. HEHEHEHHeHE
 
 * This commit is to test CI/CD pipeline on GitHub Actions.
 ## Công nghệ sử dụng
