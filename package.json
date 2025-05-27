@@ -1,24 +1,23 @@
 {
-  "name": "fifai-qlkh",
-  "version": "0.0.0",
-  "private": true,
+  "name": "quanlykhohang",
+  "version": "1.0.0",
+  "description": "Quan Ly Kho Hang Application",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www",
-    "devStart": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "dependencies": {
-    "bcryptjs": "^3.0.2",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^16.5.0",
-    "ejs": "^3.1.10",
-    "express": "~4.16.1",
-    "express-validator": "^7.2.1",
-    "http-errors": "~1.6.3",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.13.2",
-    "morgan": "~1.9.1",
-    "nodemon": "^3.1.9",
-    "pug": "2.0.0-beta11"
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0",
+    "dotenv": "^16.0.3",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
-}
+} 
