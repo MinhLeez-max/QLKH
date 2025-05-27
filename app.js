@@ -118,7 +118,7 @@ app.use((err, req, res, next) => {
 });
 
 // Khởi động server
-const port = envConfig.PORT || 5555;
+const port = process.env.PORT || 5555;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
