@@ -8,7 +8,7 @@ dotenv.config();
 // Kết nối MongoDB
 const connectDB = async () => {
   try {
-    const dbUrl = process.env.MONGODB_URI || 'mongodb://localhost/FiFai_QLKH'; // Sử dụng database FiFai_QLKH
+    const dbUrl = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/FiFai_QLKH';
     await mongoose.connect(dbUrl);
     console.log('✅ Kết nối MongoDB thành công!');
   } catch (err) {

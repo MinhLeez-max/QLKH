@@ -118,8 +118,8 @@ app.use((err, req, res, next) => {
 });
 
 // Khởi động server
-const port = process.env.PORT || 5555;
-const server = app.listen(port, () => {
+const port = process.env.PORT || 8080;
+const server = app.listen(port, '0.0.0.0', () => {
   console.log(`Server listening on port ${port}`);
 }).on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
@@ -129,6 +129,15 @@ const server = app.listen(port, () => {
     console.error('Error starting server:', err);
     process.exit(1);
   }
+});
+
+// Xử lý tắt server gracefully
+process.on('SIGTERM', () => {
+  console.log('SIGTERM signal received: closing HTTP server');
+  server.close(() => {
+    console.log('HTTP server closed');
+    process.exit(0);
+  });
 });
 
 module.exports = app;
