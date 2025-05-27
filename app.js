@@ -119,8 +119,16 @@ app.use((err, req, res, next) => {
 
 // Khởi động server
 const port = process.env.PORT || 5555;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${port} is already in use. Please try a different port.`);
+    process.exit(1);
+  } else {
+    console.error('Error starting server:', err);
+    process.exit(1);
+  }
 });
 
 module.exports = app;

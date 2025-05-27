@@ -8,7 +8,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 10000
+        value: 3000
       - key: MONGODB_URI
         value: mongodb://localhost:27017/quanlykhohang
       - key: JWT_SECRET
